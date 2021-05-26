@@ -1,0 +1,34 @@
+package work1;
+
+public class Work1DTO {
+	private String work1Id;
+	private String work1Title;
+	private String userId;
+	private String workDate;
+	public String getWorkDate() {
+		return workDate;
+	}
+	public void setWorkDate(String workDate) {
+		this.workDate = workDate;
+	}
+	public String getWork1Id() {
+		return work1Id;
+	}
+	public void setWork1Id(String work1Id) {
+		this.work1Id = work1Id;
+	}
+	public String getWork1Title() {
+		return work1Title;
+	}
+	public void setWork1Title(String work1Title) {
+		this.work1Title = work1Title;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+
+}
