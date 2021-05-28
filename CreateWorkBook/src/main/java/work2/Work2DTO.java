@@ -9,6 +9,13 @@ public class Work2DTO {
 	private String work2_view2;
 	private String work2_view3;
 	private String work2_view4;
+	private String work2_value;
+	public String getWork2_value() {
+		return work2_value;
+	}
+	public void setWork2_value(String work2_value) {
+		this.work2_value = work2_value;
+	}
 	public String getUserId() {
 		return userId;
 	}
