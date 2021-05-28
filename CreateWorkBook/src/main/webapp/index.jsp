@@ -25,11 +25,11 @@ if(session.getAttribute("userID")!=null){
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">Work Book Maker</a>
+			<a class="navbar-brand" href="index.jsp">Work Book Maker</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="wblist.jsp">문제집 모음</a></li>
+				<li><a href="work.jsp">문제집 모음</a></li>
 			</ul>
 			<%if(userID ==null){ %>
 			<ul class="nav navbar-nav navbar-right">
