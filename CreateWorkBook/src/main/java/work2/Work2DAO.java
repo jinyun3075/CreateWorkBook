@@ -92,4 +92,63 @@ public class Work2DAO {
 		}
 		return list;
 	}
+	public Work2DTO updateList(String userId, String work1Id,String work2Id) {
+		String sql ="SELECT * FROM work2 WHERE userid=? AND work1id=? AND work2id=?";
+		Work2DTO w2 =new Work2DTO();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, work1Id);
+			pstmt.setString(3, work2Id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				w2.setWork2_Qw(rs.getString(4));
+				w2.setWork2_view1(rs.getString(5));
+				w2.setWork2_view2(rs.getString(6));
+				w2.setWork2_view3(rs.getString(7));
+				w2.setWork2_view4(rs.getString(8));
+				
+				return w2;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return w2;
+	}
+	public int update(Work2DTO dto) {
+		String sql ="UPDATE work2 "
+				+ "SET work2_qs=?,work2_view1=?,work2_view2=?,work2_view3=?,work2_view4=?"
+				+ "where userid=? and work1id=? and work2id=?";
+		Work2DTO w2 =new Work2DTO();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getWork2_Qw());
+			pstmt.setString(2, dto.getWork2_view1());
+			pstmt.setString(3, dto.getWork2_view2());
+			pstmt.setString(4, dto.getWork2_view3());
+			pstmt.setString(5, dto.getWork2_view4());
+			pstmt.setString(6, dto.getUserId());
+			pstmt.setString(7, dto.getWork1Id());
+			pstmt.setString(8, dto.getWork2Id());
+			
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int delete(String userId, String work1Id, String work2Id) {
+		String sql="DELETE FROM work2 WHERE userid=? AND work1id=? AND work2id=?";
+		
+		try {
+			PreparedStatement dp = conn.prepareStatement(sql);
+			dp.setString(1, userId);
+			dp.setString(2, work1Id);
+			dp.setString(3, work2Id);
+			return dp.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

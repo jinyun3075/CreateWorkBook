@@ -42,6 +42,30 @@ public class Work1DAO {
 		}
 		return -1; // 데이터베이스 오류
 	}
+	public int delete(String userID, String work1Id) {
+		String sql="DELETE FROM work1 WHERE userid=? AND work1id=?";
+		Qdelete(userID,work1Id);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, work1Id);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public void Qdelete(String userID,String work1Id) {
+		String d= "DELETE FROM work2 WHERE userid=? AND work1id=?";
+		try {
+			pstmt = conn.prepareStatement(d);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, work1Id);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public int makeWork1(String work1Title, String userId) {
 		String sql="INSERT INTO work1 VALUES(?,?,?,?)";
