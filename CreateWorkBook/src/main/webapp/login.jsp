@@ -11,22 +11,23 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-			aria-expanded="false">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="main.jsp">Work Book Maker</a>
-		</div>
-		<div class="collapse navbar-collapse" id="bs=example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">게시판</a></li>
-			</ul>
-		</div>
-	</nav>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="index.jsp">Work Book Maker</a>
+					</div>
+					<div class="collapse navbar-collapse" id="bs=example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="work.jsp">나만의 문제집</a></li>
+							<li><a href="public/public.jsp">공유 문제집</a></li>
+						</ul>
+					</div>
+				</nav>
 	
 <section class="login-block">
 	<div class="row">

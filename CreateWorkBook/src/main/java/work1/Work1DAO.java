@@ -68,7 +68,7 @@ public class Work1DAO {
 	}
 	
 	public int makeWork1(String work1Title, String userId) {
-		String sql="INSERT INTO work1 VALUES(?,?,?,?)";
+		String sql="INSERT INTO work1 VALUES(?,?,?,?,'1')";
 		int b =getNext(userId);
 		String a=""+b;
 		try {
@@ -107,5 +107,56 @@ public class Work1DAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public ArrayList<Work1DTO> publicgetlist(){
+		String sql = "SELECT * FROM work1 WHERE publ='0'";
+		ArrayList<Work1DTO> list =new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Work1DTO work = new Work1DTO();
+				work.setWork1Id(rs.getString(1));
+				work.setWork1Title(rs.getString(2));
+				work.setUserId(rs.getString(3));
+				work.setWorkDate(rs.getString(4));
+
+				list.add(work);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public String shere(String work1Id ,String userId) {
+		String sql="SELECT publ FROM work1 WHERE work1id=? AND userid=?";
+		String rsult=null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, work1Id);
+			pstmt.setString(2, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				rsult=rs.getString(1);
+			}
+			return rsult;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return rsult;
+	}
+	public int change(String work1Id ,String userId, String val) {
+		String sql="UPDATE work1 SET publ=? WHERE work1id=? AND userid=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, val);
+			pstmt.setString(2, work1Id);
+			pstmt.setString(3, userId);
+			return pstmt.executeUpdate(); 
+			}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

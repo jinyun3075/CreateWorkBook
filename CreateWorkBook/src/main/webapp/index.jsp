@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content ="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>WorkBook</title>
@@ -29,7 +30,8 @@ if(session.getAttribute("userID")!=null){
 		</div>
 		<div class="collapse navbar-collapse" id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="work.jsp">문제집 모음</a></li>
+				<li><a href="work.jsp">나만의 문제집</a></li>
+				<li><a href="public/public.jsp">공유 문제집</a></li>
 			</ul>
 			<%if(userID ==null){ %>
 			<ul class="nav navbar-nav navbar-right">
@@ -53,9 +55,11 @@ if(session.getAttribute("userID")!=null){
 	<div class="container">
 		<div class="jumbotron">
 			<div class="container">
-				<h1>나는요</h1>
-				<p>개발자가 되기위해 노렬중입니당.</p>
-				<p><a class="btn btn-primary btn-pull" href="#" role="button">자세히 알아보기</a></p>
+				<h1>내가만든문제집 풀어보고 공유하자!!</h1>
+				<%if(userID!=null){ %>
+				<p><%=userID%>님 환영합니다.</p>
+				<%} %>
+				<p><a class="btn btn-primary btn-pull" href="work1.jsp" role="button">문제집 만들기</a></p>
 			</div>
 		</div>
 	</div>

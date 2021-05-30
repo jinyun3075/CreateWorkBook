@@ -5,6 +5,13 @@ public class Work1DTO {
 	private String work1Title;
 	private String userId;
 	private String workDate;
+	private String publ;
+	public String getPubl() {
+		return publ;
+	}
+	public void setPubl(String publ) {
+		this.publ = publ;
+	}
 	public String getWorkDate() {
 		return workDate;
 	}
