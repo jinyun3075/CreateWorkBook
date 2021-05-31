@@ -79,8 +79,25 @@ public class Work1DAO {
 			zpstmt.setString(3, userId);
 			zpstmt.setString(4, getDate());
 			int z = zpstmt.executeUpdate();
-			System.out.print(z);
 			return z;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int makeAndget(String work1Title, String userId) {
+		String sql="INSERT INTO work1 VALUES(?,?,?,?,'1')";
+		int b =getNext(userId);
+		String a=""+b;
+		try {
+			PreparedStatement zpstmt = conn.prepareStatement(sql);
+			
+			zpstmt.setString(1, a);
+			zpstmt.setString(2, work1Title);
+			zpstmt.setString(3, userId);
+			zpstmt.setString(4, getDate());
+			zpstmt.executeUpdate();
+			return b;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

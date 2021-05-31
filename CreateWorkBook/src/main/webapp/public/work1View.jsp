@@ -31,8 +31,8 @@
 				</div>
 				<div class="collapse navbar-collapse" id="bs=example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="../work.jsp">나만의 문제집</a></li>
-							<li class="active"><a href="public.jsp">공유 문제집</a></li>
+						<li><a href="../work.jsp">My WorkBook</a></li>
+							<li class="active"><a href="public.jsp">Public WorkBook</a></li>
 					</ul>
 					<%if(userID ==null){ %>
 					<ul class="nav navbar-nav navbar-right">
@@ -57,6 +57,7 @@
 		<%
 			String work1Id = (String) request.getParameter("work1id");
 			String makeUser= (String) request.getParameter("makeuser");
+			String title= (String) request.getParameter("title");
 		%>
 		<br/>
 		<% 
@@ -74,6 +75,12 @@
 			<input type="hidden" name="work1id" value="<%=work1Id %>">
 			<input type="hidden" name="makeuser" value="<%=makeUser %>">
 			<input type="submit" value="문제 풀기">
+		</form>
+		<form action="getWork.jsp" method="post">
+			<input type="hidden" name="work1Id" value="<%=work1Id %>">
+			<input type="hidden" name="userId" value="<%=makeUser %>">
+			<input type="hidden" name="work1Title" value="<%=title %>">
+			<input type="submit" value="My WorkBook에 저장">
 		</form>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>

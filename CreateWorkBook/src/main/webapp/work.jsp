@@ -60,7 +60,6 @@
 					<tr>
 						<th style="background-color: #eeeeee; text-align: center;">번호</th>
 						<th style="background-color: #eeeeee; text-align: center;">제목</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성자</th>
 						<th style="background-color: #eeeeee; text-align: center;">작성일</th>
 					</tr>
 				</thead>
@@ -74,7 +73,6 @@
 					<tr>
 						<td><%=list.get(i).getWork1Id() %></td>
 						<td><a href="work1View.jsp?work1id=<%=list.get(i).getWork1Id() %>"><%= list.get(i).getWork1Title().replaceAll(" ", "&nbsp").replaceAll(">", "&gt;").replaceAll("<", "&lt;").replaceAll("\n","<br>") %></a></td>
-						<td><%=list.get(i).getUserId()%></td>
 						<td><%=list.get(i).getWorkDate().substring(0,11)+list.get(i).getWorkDate().substring(11,13)+"시"+list.get(i).getWorkDate().substring(14,16)+"분"%></td>
 					</tr>
 					<%}%>
