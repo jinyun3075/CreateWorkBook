@@ -6,6 +6,13 @@ public class Work1DTO {
 	private String userId;
 	private String workDate;
 	private String publ;
+	private String cli;
+	public String getCli() {
+		return cli;
+	}
+	public void setCli(String cli) {
+		this.cli = cli;
+	}
 	public String getPubl() {
 		return publ;
 	}

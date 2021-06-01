@@ -7,7 +7,7 @@
 </head>
 <body>
 	<%
-		session.invalidate();
+	session.invalidate();
 	%>
 	<script>
 		location.href = 'index.jsp';

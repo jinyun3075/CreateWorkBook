@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page import="work1.Work1DAO" %>
-	<%@ page import="java.io.PrintWriter" %>
+<%@ page import="work1.Work1DAO"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 </head>
 <body>
-		<%
+	<%
 			PrintWriter script = response.getWriter();
 			String userID = (String)session.getAttribute("userID");
 			String work1Id = (String) request.getParameter("work1id");
