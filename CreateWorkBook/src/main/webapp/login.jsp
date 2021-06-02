@@ -46,7 +46,6 @@
 						<input type="password" class="form-control" name="userPW"
 							placeholder="">
 					</div>
-
 					<button type="submit" class="btn btn-login float-right">로그인</button>
 
 				</form>

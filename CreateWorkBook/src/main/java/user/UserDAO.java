@@ -45,5 +45,22 @@ public class UserDAO {
 		
 	}
 	
+	public String name(String userID) {
+		String sql = "SELECT username FROM userlist WHERE userid=?";
+		String v="";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userID);
+			rs= pstmt.executeQuery();
+			if(rs.next()) {
+				v=rs.getString(1);
+			}
+			return v;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return v;
+		
+	}
 
 }

@@ -14,8 +14,10 @@ request.setCharacterEncoding("UTF-8");
 <body>
 	<%
 	String userID = null;
+	String name=null;
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
+		name = (String) session.getAttribute("userName");
 	} else {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -43,7 +45,7 @@ request.setCharacterEncoding("UTF-8");
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><%=userID%> <span class="caret"></span></a>
+					aria-expanded="false"><%=name%> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul></li>

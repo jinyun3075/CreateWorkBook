@@ -88,7 +88,7 @@ public class Work1DAO {
 	}
 
 	public int makeAndget(String work1Title, String userId) {
-		String sql = "INSERT INTO work1 VALUES(?,?,?,?,'1')";
+		String sql = "INSERT INTO work1 VALUES(?,?,?,?,'1','0')";
 		int b = getNext(userId);
 		String a = "" + b;
 		try {
@@ -107,13 +107,13 @@ public class Work1DAO {
 	}
 
 	public ArrayList<Work1DTO> getlist(String userID, int pageNumber, String serch) {
-		String sql = "SELECT * FROM work1 WHERE userid=? AND work1title LIKE ? ORDER BY workdate LIMIT 10 OFFSET ?";
+		String sql = "SELECT * FROM work1 WHERE userid=? AND work1title LIKE ? ORDER BY workdate LIMIT 5 OFFSET ?";
 		ArrayList<Work1DTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userID);
 			pstmt.setString(2, serch);
-			pstmt.setInt(3, (pageNumber - 1) * 10);
+			pstmt.setInt(3, (pageNumber - 1) * 5);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Work1DTO work = new Work1DTO();
@@ -155,12 +155,13 @@ public class Work1DAO {
 		return list;
 	}
 
-	public boolean nextPage(int pageNumber, String serch) {
-		String SQL = "SELECT * FROM work1 WHERE work1title LIKE ? ORDER BY workdate LIMIT 10 OFFSET ?";
+	public boolean nextPage(int pageNumber, String serch,String userid) {
+		String SQL = "SELECT * FROM work1 WHERE userid=? AND work1title LIKE ? ORDER BY workdate LIMIT 5 OFFSET ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, serch);
-			pstmt.setInt(2, (pageNumber - 1) * 10);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, serch);
+			pstmt.setInt(3, (pageNumber - 1) * 5);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;
@@ -171,11 +172,11 @@ public class Work1DAO {
 		return false;
 	}
 	public boolean publnextPage(int pageNumber, String serch) {
-		String SQL = "SELECT * FROM work1 WHERE publ='0' AND work1title LIKE ? ORDER BY workdate LIMIT 10 OFFSET ?";
+		String SQL = "SELECT * FROM work1 WHERE publ='0' AND work1title LIKE ? ORDER BY workdate LIMIT 5 OFFSET ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, serch);
-			pstmt.setInt(2, (pageNumber - 1) * 10);
+			pstmt.setInt(2, (pageNumber - 1) * 5);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;

@@ -13,12 +13,34 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" href="../css/custom.css">
 <link rel="stylesheet" href="../css/bootstrap.css">
 <meta charset="UTF-8">
+<style>
+.paging {
+	text-align: center;
+}
+
+.paging a {
+	display: inline-block;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
+	color: #000;
+	background-color: #F5F5DC;
+}
+
+.paging a.select {
+	color: #fff;
+	background-color: #FFA7A7;
+}
+</style>
 </head>
 <body>
 	<%
 	String userID = null;
+	String name=null;
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
+		name = (String) session.getAttribute("userName");
 	} else {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -51,7 +73,7 @@ request.setCharacterEncoding("UTF-8");
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><%=userID%> <span class="caret"></span></a>
+					aria-expanded="false"><%=name%> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					</ul></li>
@@ -99,20 +121,46 @@ request.setCharacterEncoding("UTF-8");
 
 		</tbody>
 	</table>
+	<div class="paging">
 	<%
 	if (pageNumber != 1) {
 	%>
 	<a href="public.jsp?pageNumber=<%=pageNumber - 1%>&&serch=<%=serch %>"
-		class="btn btn-success btn-arraw-left">이전</a>
+		class="btn btn-success">이전</a>
 	<%
 	}
+	%>
+	<%
+		int pag=0;
+		pag=pageNumber/5;
+		pag*=5;
+		int cnt=0;
+		while(cnt<5){
+		if(!DAO.publnextPage(pag + 1, serch)){
+			break;
+		}
+		if(pag+1==pageNumber){
+	%>
+			<a class="select" href="public.jsp?pageNumber=<%=pag+1%>&&serch=<%=serch%>"><%=pag+1%></a>
+	<% 			
+		}else{
+	%>
+		<a href="public.jsp?pageNumber=<%=pag+1%>&&serch=<%=serch%>"><%=pag+1%></a>	
+	<%		
+		}
+			pag++;
+			cnt++;
+		}
+	%>
+	<%
 	if (DAO.publnextPage(pageNumber + 1, serch)) {
 	%>
 	<a href="public.jsp?pageNumber=<%=pageNumber + 1%>&&serch=<%=serch %>"
-		class="btn btn-success btn-arraw-left">다음</a>
+		class="btn btn-success">다음</a>
 	<%
 	}
 	%>
+		</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>
 

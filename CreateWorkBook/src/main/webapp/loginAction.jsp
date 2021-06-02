@@ -18,9 +18,11 @@ request.setCharacterEncoding("UTF-8");
 	<%
 	PrintWriter cript = response.getWriter();
 	UserDAO dao = new UserDAO();
+	String name = dao.name(user.getUserID());
 	int result = dao.login(user.getUserID(), user.getUserPW());
 	if (result == 1) {
 		session.setAttribute("userID", user.getUserID());
+		session.setAttribute("userName", name);
 		cript.println("<script>");
 		cript.println("alert('로그인 성공')");
 		cript.println("location.href='index.jsp'");
