@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="work2.Work2DAO"%>
-<%@ page import="work1.Work1DAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="work2.Work2DTO"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/custom.css">
-<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 	<%
@@ -34,14 +34,14 @@
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="../work.jsp">My WorkBook</a></li>
-				<li class="active"><a href="public.jsp">Public WorkBook</a></li>
+				<li><a href="work.jsp">My WorkBook</a></li>
+				<li><a href="public/public.jsp">Public WorkBook</a></li>
 			</ul>
 			<%
 			if (userID == null) {
 			%>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="../login.jsp">Login</a></li>
+				<li><a href="login.jsp">Login</a></li>
 			</ul>
 			<%
 			} else {
@@ -52,7 +52,7 @@
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false"><%=name%> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul></li>
 			</ul>
 			<%
@@ -62,12 +62,11 @@
 	</nav>
 
 	<%
-	int cs = Integer.parseInt((String) request.getParameter("cs"));
 	int score = 0;
-	if (request.getParameter("score") != null) {
-		score = Integer.parseInt((String) request.getParameter("score"));
+	if(request.getParameter("score")!=null){
+		score =  Integer.parseInt((String) request.getParameter("score"));
 	}
-	String makeUser = request.getParameter("makeuser");
+	int cs = Integer.parseInt((String) request.getParameter("cs"));
 	int p;
 	if (request.getParameter("num") == null) {
 		p = 0;
@@ -77,19 +76,22 @@
 	String value = (String) request.getParameter("work1id");
 	Work2DAO dao = new Work2DAO();
 	ArrayList<Work2DTO> list = new ArrayList<>();
-	list = dao.getWork2(makeUser, value);
+	
+	list = dao.getWork2(userID, value);
 	if (list.size() <= p) {
-		Work1DAO wo = new Work1DAO();
-		wo.cliUp(value, makeUser);
 		if(cs==1){
+			%>
+			정답률 <%=score %>/<%=list.size() %>
+			<%
+		}
 	%>
-	정답률 <%=score %>/<%=list.size() %>
-	<%} %>
+	<br>
+	틀린문제
+	<br>
 
+	<br>
 	<h1>모든 문제를 다 풀었습니다~</h1>
-
-	<a href="work1View.jsp?work1id=<%=value%>&&makeuser=<%=makeUser%>"
-		class="btn btn-primary">처음으로</a>&nbsp;
+	<a href="work1View.jsp?work1id=<%=value%>" class="btn btn-primary">처음으로</a>&nbsp;
 	<%
 	} else {
 	if (cs == 0) {
@@ -97,11 +99,10 @@
 	<p><%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
-		<input type="hidden" name="val"
-			value="<%=list.get(p).getWork2_value()%>"> <input
+		<input type="hidden" name="cs" value="0"> <input type="hidden"
+			name="val" value="<%=list.get(p).getWork2_value()%>"> <input
 			type="hidden" name="num" value="<%=p%>"> <input type="hidden"
-			name="work1id" value="<%=value%>"> <input type="hidden"
-			name="makeuser" value="<%=makeUser%>"> <input type="radio"
+			name="work1id" value="<%=value%>"> <input type="radio"
 			name="qs" value="1">
 		<%=list.get(p).getWork2_view1()%><br> <input type="radio"
 			name="qs" value="2">
@@ -114,17 +115,17 @@
 	</form>
 	<%
 	} else {
+	
 	%>
 	<p><%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
-		<input type="hidden" name="cs" value="1"> <input type="hidden"
-			name="score" value="<%=score%>"> <input type="hidden"
-			name="makeuser" value="<%=makeUser%>"> <input type="hidden"
+		<input type="hidden" name="cs" value="1">
+		<input type="hidden" name="score" value="<%=score%>">
+		 <input type="hidden"
 			name="val" value="<%=list.get(p).getWork2_value()%>"> <input
 			type="hidden" name="num" value="<%=p%>"> <input type="hidden"
-			name="work1id" value="<%=value%>"> <input type="hidden"
-			name="makeuser" value="<%=makeUser%>"> <input type="radio"
+			name="work1id" value="<%=value%>"> <input type="radio"
 			name="qs" value="1">
 		<%=list.get(p).getWork2_view1()%><br> <input type="radio"
 			name="qs" value="2">
@@ -142,6 +143,6 @@
 
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="../js/bootstrap.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
-</html>
+</html> 

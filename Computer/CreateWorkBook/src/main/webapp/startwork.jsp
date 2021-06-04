@@ -3,7 +3,7 @@
 <%@ page import="work2.Work2DAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="work2.Work2DTO"%>
-<jsp:useBean id="wrong" class="wrong.wrong" scope="request"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,13 +58,7 @@
 	</jsp:forward>
 	<%
 	} else {
-		ArrayList<Integer> a=(ArrayList<Integer>)request.getAttribute("wrong");
-		wrong.setWrong(a);
-		wrong.add(num);
-		wrong.prin();
-		for(int i =0;i<wrong.getWrong().size();i++){
-			System.out.println(wrong.getWrong().get(i));
-		}
+		
 	%>
 		<jsp:forward page="startworkView.jsp">
 		<jsp:param name="cs" value="1"/>
@@ -72,11 +66,11 @@
 		<jsp:param name="score" value="<%=score %>"/>
 		<jsp:param name="work1id" value="<%=workid%>"/>
 	</jsp:forward>
-	
+
 	<%
 	}
 	}
 	%>
 
 </body>
-</html>
+</html> 
