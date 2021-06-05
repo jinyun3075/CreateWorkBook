@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page import="work2.Work2DAO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +32,8 @@
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="work.jsp">My WorkBook</a></li>
-				<li><a href="public/public.jsp">Public WorkBook</a></li>
+				<li><a href="../work.jsp">My WorkBook</a></li>
+				<li class="active"><a href="public.jsp">Public WorkBook</a></li>
 			</ul>
 			<%
 			if (userID == null) {
@@ -61,6 +62,8 @@
 	<%
 	String makeUser = request.getParameter("makeuser");
 	String work1Id = (String) request.getParameter("work1id");
+	Work2DAO d = new Work2DAO();
+	d.wrongdel(userID);
 	%>
 
 

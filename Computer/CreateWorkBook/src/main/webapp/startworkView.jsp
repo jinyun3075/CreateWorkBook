@@ -79,18 +79,32 @@
 	
 	list = dao.getWork2(userID, value);
 	if (list.size() <= p) {
+		%>
+		<h1>모든 문제를 다 풀었습니다~</h1>		
+			<%
 		if(cs==1){
 			%>
 			정답률 <%=score %>/<%=list.size() %>
+			<br><br>
+			틀린문제
+			<br><br>
 			<%
+			list = dao.getwrong2(userID, value);
+			for(int i=0;i<list.size();i++){
+				%>
+				<p><%=list.get(i).getWork2Id()%>번 문제: &nbsp;<%=list.get(i).getWork2_Qw()%></p>
+				<p>1. <%=list.get(i).getWork2_view1()%><br></p>
+				<p>2. <%=list.get(i).getWork2_view2()%><br></p>
+				<p>3. <%=list.get(i).getWork2_view3()%><br></p>
+				<p>4. <%=list.get(i).getWork2_view4()%><br></p>
+				정답 (<%=list.get(i).getWork2_value()%>)
+				<br><br>
+				--------------------------
+				<%
+			}
 		}
 	%>
 	<br>
-	틀린문제
-	<br>
-
-	<br>
-	<h1>모든 문제를 다 풀었습니다~</h1>
 	<a href="work1View.jsp?work1id=<%=value%>" class="btn btn-primary">처음으로</a>&nbsp;
 	<%
 	} else {
@@ -99,7 +113,8 @@
 	<p><%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
-		<input type="hidden" name="cs" value="0"> <input type="hidden"
+		<input type="hidden" name="cs" value="0">
+		 <input type="hidden"
 			name="val" value="<%=list.get(p).getWork2_value()%>"> <input
 			type="hidden" name="num" value="<%=p%>"> <input type="hidden"
 			name="work1id" value="<%=value%>"> <input type="radio"
@@ -121,6 +136,7 @@
 	</p>
 	<form action="startwork.jsp" method="post">
 		<input type="hidden" name="cs" value="1">
+		<input type="hidden" name="work2id" value="<%=list.get(p).getWork2Id()%>">
 		<input type="hidden" name="score" value="<%=score%>">
 		 <input type="hidden"
 			name="val" value="<%=list.get(p).getWork2_value()%>"> <input

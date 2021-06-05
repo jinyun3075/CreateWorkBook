@@ -29,7 +29,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsp">Work Book Maker</a>
+			<a class="navbar-brand" href="../index.jsp">Work Book Maker</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
@@ -81,12 +81,47 @@
 	if (list.size() <= p) {
 		Work1DAO wo = new Work1DAO();
 		wo.cliUp(value, makeUser);
-		if(cs==1){
+		%>
+	<h1>모든 문제를 다 풀었습니다~</h1>		
+		<%
+		if (cs == 1) {
 	%>
-	정답률 <%=score %>/<%=list.size() %>
-	<%} %>
+	정답률
+	<%=score%>/<%=list.size()%>
+	<br>
+	<br> 틀린문제
+	<br>
+	<br>
+	<%
+	list = dao.publgetwrong2(userID, value,makeUser);
+	for (int i = 0; i < list.size(); i++) {
+	%>
+	<p><%=list.get(i).getWork2Id()%>번 문제: &nbsp;<%=list.get(i).getWork2_Qw()%></p>
+	<p>
+		1.
+		<%=list.get(i).getWork2_view1()%><br>
+	</p>
+	<p>
+		2.
+		<%=list.get(i).getWork2_view2()%><br>
+	</p>
+	<p>
+		3.
+		<%=list.get(i).getWork2_view3()%><br>
+	</p>
+	<p>
+		4.
+		<%=list.get(i).getWork2_view4()%><br>
+	</p>
+	정답 (<%=list.get(i).getWork2_value()%>)
+	<br>
+	<br> --------------------------
 
-	<h1>모든 문제를 다 풀었습니다~</h1>
+	<%
+	}
+	}
+	%>
+
 
 	<a href="work1View.jsp?work1id=<%=value%>&&makeuser=<%=makeUser%>"
 		class="btn btn-primary">처음으로</a>&nbsp;
@@ -98,7 +133,8 @@
 	</p>
 	<form action="startwork.jsp" method="post">
 		<input type="hidden" name="val"
-			value="<%=list.get(p).getWork2_value()%>"> <input
+			value="<%=list.get(p).getWork2_value()%>">
+			<input type="hidden" name="cs" value="0"> <input
 			type="hidden" name="num" value="<%=p%>"> <input type="hidden"
 			name="work1id" value="<%=value%>"> <input type="hidden"
 			name="makeuser" value="<%=makeUser%>"> <input type="radio"
@@ -118,6 +154,7 @@
 	<p><%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
+	<input type="hidden" name="work2id" value="<%=list.get(p).getWork2Id()%>">
 		<input type="hidden" name="cs" value="1"> <input type="hidden"
 			name="score" value="<%=score%>"> <input type="hidden"
 			name="makeuser" value="<%=makeUser%>"> <input type="hidden"
@@ -144,4 +181,4 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>
 </body>
-</html> 
+</html>

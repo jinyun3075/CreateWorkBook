@@ -12,11 +12,17 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
+	String userID = (String) session.getAttribute("userID");
+	int work2id=0;
+	if(request.getParameter("work2id")!=null){
+		work2id= Integer.parseInt((String)request.getParameter("work2id"));
+	}
 	String val = (String) request.getParameter("val");
 	String qs = (String) request.getParameter("qs");
 	int num = Integer.parseInt((String) request.getParameter("num"));
 	String workid = (String) request.getParameter("work1id");
 	int cs = Integer.parseInt((String) request.getParameter("cs"));
+	Work2DAO dao = new Work2DAO();
 	if (cs == 0) {
 		if (val.equals(qs)) {
 	%>
@@ -58,7 +64,7 @@
 	</jsp:forward>
 	<%
 	} else {
-		
+		dao.wrong(userID, work2id);
 	%>
 		<jsp:forward page="startworkView.jsp">
 		<jsp:param name="cs" value="1"/>
