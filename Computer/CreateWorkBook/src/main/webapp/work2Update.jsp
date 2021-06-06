@@ -28,7 +28,7 @@
 		보기3<input type="text" name="work2_view3"
 			value="<%=dto.getWork2_view3()%>"><br /> 보기4<input
 			type="text" name="work2_view4" value="<%=dto.getWork2_view4()%>"><br />
-		정답(정답번호입력)<input type="text" name="work2_view4"
+		정답(정답번호입력)<input type="text" name="work2_value"
 			value="<%=dto.getWork2_value()%>"><br /> <input type="submit"
 			value="수정">
 	</form>

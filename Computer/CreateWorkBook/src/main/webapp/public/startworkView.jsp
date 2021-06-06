@@ -129,7 +129,7 @@
 	} else {
 	if (cs == 0) {
 	%>
-	<p><%=list.get(p).getWork2_Qw()%><br />
+	<p><%=list.get(p).getWork2Id()%>번: <%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
 		<input type="hidden" name="val"
@@ -151,7 +151,7 @@
 	<%
 	} else {
 	%>
-	<p><%=list.get(p).getWork2_Qw()%><br />
+	<p><%=list.get(p).getWork2Id()%>번: <%=list.get(p).getWork2_Qw()%><br />
 	</p>
 	<form action="startwork.jsp" method="post">
 	<input type="hidden" name="work2id" value="<%=list.get(p).getWork2Id()%>">
