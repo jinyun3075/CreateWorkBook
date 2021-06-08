@@ -3,16 +3,29 @@
 <%@ page import="work2.Work2DAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="work2.Work2DTO"%>
+<%@ page import="java.io.PrintWriter"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
+	
 	<%
 	request.setCharacterEncoding("UTF-8");
-	String userID = (String) session.getAttribute("userID");
+	String userID = null;
+	if(session.getAttribute("userID")!=null){
+		userID = (String) session.getAttribute("userID");
+	}else {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('로그인하시오.')");
+		script.println("location.href ='login.jsp'");
+		script.println("</script>");
+	}
 	int work2id=0;
 	if(request.getParameter("work2id")!=null){
 		work2id= Integer.parseInt((String)request.getParameter("work2id"));
@@ -26,6 +39,7 @@
 	if (cs == 0) {
 		if (val.equals(qs)) {
 	%>
+	<jsp:include page="privateNav.jsp"/>
 	<h1>정답입니다!!</h1>
 	<form action="startworkView.jsp" method="post">
 		<input type="hidden" name="cs" value="0"> <input type="hidden"
@@ -77,6 +91,7 @@
 	}
 	}
 	%>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html> 
