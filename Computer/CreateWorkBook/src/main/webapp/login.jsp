@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col-md-4 login-sec">
 				<h2 class="text-center">Login Now</h2>
-				<form class="login-form" action="loginAction.jsp" method="post">
+				<form class="login-form" action="login.do" method="post">
 
 					<div class="form-group">
 						<label for="exampleInputEmail1" class="text-uppercase">Username</label>

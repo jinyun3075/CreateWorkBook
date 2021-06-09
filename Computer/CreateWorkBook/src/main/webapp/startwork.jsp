@@ -32,7 +32,7 @@
 	}
 	String val = (String) request.getParameter("val");
 	String qs = (String) request.getParameter("qs");
-	int num = Integer.parseInt((String) request.getParameter("num"));
+	
 	String workid = (String) request.getParameter("work1id");
 	int cs = Integer.parseInt((String) request.getParameter("cs"));
 	Work2DAO dao = new Work2DAO();
@@ -43,13 +43,13 @@
 	<h1>정답입니다!!</h1>
 	<form action="startworkView.jsp" method="post">
 		<input type="hidden" name="cs" value="0"> <input type="hidden"
-			name="num" value="<%=num%>"> <input type="hidden"
+			name="num" value="${param.num }"> <input type="hidden"
 			name="work1id" value="<%=workid%>"> <input type="submit"
 			value="문제 다시풀기">
 	</form>
 	<form action="startworkView.jsp" method="post">
 		<input type="hidden" name="cs" value="0"> <input type="hidden"
-			name="num" value="<%=num + 1%>"> <input type="hidden"
+			name="num" value="${param.num+1}"> <input type="hidden"
 			name="work1id" value="<%=workid%>"> <input type="submit"
 			value="다음문제 풀기">
 	</form>
@@ -59,7 +59,7 @@
 	<h1>틀렸습니다!!</h1>
 	<form action="startworkView.jsp" method="post">
 		<input type="hidden" name="cs" value="0"> <input type="hidden"
-			name="num" value="<%=num%>"> <input type="hidden"
+			name="num" value="${param.num }"> <input type="hidden"
 			name="work1id" value="<%=workid%>"> <input type="submit"
 			value="문제 다시풀기">
 	</form>
@@ -72,7 +72,7 @@
 
 	<jsp:forward page="startworkView.jsp">
 		<jsp:param name="cs" value="1"/>
-		<jsp:param name="num" value="<%=num+1 %>"/>
+		<jsp:param name="num" value="${param.num+1}"/>
 		<jsp:param name="score" value="<%=score+1 %>"/>
 		<jsp:param name="work1id" value="<%=workid%>"/>
 	</jsp:forward>
@@ -82,7 +82,7 @@
 	%>
 		<jsp:forward page="startworkView.jsp">
 		<jsp:param name="cs" value="1"/>
-		<jsp:param name="num" value="<%=num+1 %>"/>
+		<jsp:param name="num" value="${param.num+1}"/>
 		<jsp:param name="score" value="<%=score %>"/>
 		<jsp:param name="work1id" value="<%=workid%>"/>
 	</jsp:forward>
