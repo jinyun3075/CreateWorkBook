@@ -16,6 +16,9 @@ public class BLogin implements BCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+
 		UserDAO dao = new UserDAO();
 		int result = dao.login(request.getParameter("userID"), request.getParameter("userPW"));
 		request.setAttribute("val", result);

@@ -47,6 +47,10 @@ public class action extends HttpServlet {
 	
 	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+
+		
 		String uri = request.getRequestURI();
 		String conf = request.getContextPath();
 		String com = uri.substring(conf.length());
@@ -60,22 +64,15 @@ public class action extends HttpServlet {
 			if (a == 1) {
 				session.setAttribute("userID", request.getParameter("userID"));
 				session.setAttribute("userName",request.getAttribute("userName"));
-				
 				viewPage ="index.jsp";
-			} else if (a == 2) {
-			
-				viewPage ="login.jsp";
-			} else if (a == -1) {
-			
-				viewPage ="login.jsp";
 			} else {
-				
 				viewPage ="login.jsp";
 			}
+		}else if(com.equals("/join.do")){
+			
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
-		
 	}
 }

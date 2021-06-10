@@ -1,6 +1,7 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +12,15 @@
 <title>WorkBook</title>
 </head>
 <body>
+	<c:set var="userID" value="${sessionScope.userID}"/>
+	<c:set var="a" value="${val}"/>
+	<c:if test="${a==1}">
+		<script>
+		alert("성공");
+		</script>
+	</c:if>
 	<%
 	response.setContentType("text/html; charset=utf-8");
-	String userID = null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-	}
-	
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -35,15 +38,12 @@
 				<li><a href="work.jsp">My WorkBook</a></li>
 				<li><a href="public/public.jsp">Public WorkBook</a></li>
 			</ul>
-			<%
-			if (userID == null) {
-			%>
+			<c:if test="${empty userID}">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="login.jsp">Login</a></li>
 			</ul>
-			<%
-			} else {
-			%>
+			</c:if>
+			<c:if test="${!empty userID}">
 
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -53,23 +53,17 @@
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul></li>
 			</ul>
-			<%
-			}
-			%>
+			</c:if>
 		</div>
 	</nav>
 	<div class="container">
 		<div class="jumbotron">
 			<div class="container">
 				<h1>내가만든문제집 풀어보고 공유하자!!</h1>
-				<%
-				if (userID != null) {
-				%>
+				<c:if test="${!empty userID}">
 				<p>${sessionScope.userName }님 환영합니다.
 				</p>
-				<%
-				}
-				%>
+				</c:if>
 				<p>
 					<a class="btn btn-primary btn-pull" href="work1.jsp" role="button">문제집
 						만들기</a>
