@@ -58,8 +58,8 @@ public class Work2DAO {
 		try {
 			PreparedStatement spstmt = conn.prepareStatement(sql);
 			spstmt.setString(1, wk.getUserId());
-			spstmt.setString(2, wk.getWork1Id());
-			spstmt.setString(3, id2);
+			spstmt.setInt(2, Integer.parseInt(wk.getWork1Id()));
+			spstmt.setInt(3, Integer.parseInt(id2));
 			spstmt.setString(4, wk.getWork2_Qw());
 			spstmt.setString(5, wk.getWork2_view1());
 			spstmt.setString(6, wk.getWork2_view2());
@@ -119,8 +119,8 @@ public class Work2DAO {
 	}
 	public int update(Work2DTO dto) {
 		String sql ="UPDATE work2 "
-				+ "SET work2_qs=?,work2_view1=?,work2_view2=?,work2_view3=?,work2_view4=?,work2_value=?"
-				+ "where userid=? and work1id=? and work2id=?";
+				+ "SET work2_qs=?, work2_view1=?, work2_view2=?, work2_view3=?, work2_view4=?, work2_value=? "
+				+ "WHERE userid=? AND work1id=? AND work2id=? ";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getWork2_Qw());
@@ -130,8 +130,8 @@ public class Work2DAO {
 			pstmt.setString(5, dto.getWork2_view4());
 			pstmt.setString(6, dto.getWork2_value());
 			pstmt.setString(7, dto.getUserId());
-			pstmt.setString(8, dto.getWork1Id());
-			pstmt.setString(9, dto.getWork2Id());
+			pstmt.setInt(8, Integer.parseInt(dto.getWork1Id()));
+			pstmt.setInt(9, Integer.parseInt(dto.getWork2Id()));
 			
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -164,6 +164,7 @@ public class Work2DAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Work2DTO w2 =new Work2DTO();
+				w2.setWork2Id(rs.getString(3));
 				w2.setWork2_Qw(rs.getString(4));
 				w2.setWork2_view1(rs.getString(5));
 				w2.setWork2_view2(rs.getString(6));
@@ -178,5 +179,79 @@ public class Work2DAO {
 		}
 		return list;
 	}
+	public void wrong(String userid,int wrong){
+		String sql ="INSERT INTO wrong values(?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setInt(2, wrong);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
+	public ArrayList<Work2DTO> getwrong2(String userId, String work1Id) {
+		String sql ="SELECT * FROM work2 WHERE userid=? AND work1id=? AND work2id IN (SELECT wrong FROM wrong WHERE userid=?)";
+		ArrayList<Work2DTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, work1Id);
+			pstmt.setString(3, userId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Work2DTO w2 =new Work2DTO();
+				w2.setWork2Id(rs.getString(3));
+				w2.setWork2_Qw(rs.getString(4));
+				w2.setWork2_view1(rs.getString(5));
+				w2.setWork2_view2(rs.getString(6));
+				w2.setWork2_view3(rs.getString(7));
+				w2.setWork2_view4(rs.getString(8));
+				w2.setWork2_value(rs.getString(9));
+				list.add(w2);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public ArrayList<Work2DTO> publgetwrong2(String userId, String work1Id,String makeUser) {
+		String sql ="SELECT * FROM work2 WHERE userid=? AND work1id=? AND work2id IN (SELECT wrong FROM wrong WHERE userid=?)";
+		ArrayList<Work2DTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, makeUser);
+			pstmt.setString(2, work1Id);
+			pstmt.setString(3, userId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Work2DTO w2 =new Work2DTO();
+				w2.setWork2Id(rs.getString(3));
+				w2.setWork2_Qw(rs.getString(4));
+				w2.setWork2_view1(rs.getString(5));
+				w2.setWork2_view2(rs.getString(6));
+				w2.setWork2_view3(rs.getString(7));
+				w2.setWork2_view4(rs.getString(8));
+				w2.setWork2_value(rs.getString(9));
+				list.add(w2);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public void wrongdel(String userid) {
+		String sql ="DELETE FROM wrong WHERE userid=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

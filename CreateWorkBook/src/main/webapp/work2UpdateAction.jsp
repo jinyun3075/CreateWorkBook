@@ -7,14 +7,8 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <jsp:useBean id="work2" class="work2.Work2DTO" />
-<jsp:setProperty property="userId" name="work2" />
-<jsp:setProperty property="work1Id" name="work2" />
-<jsp:setProperty property="work2Id" name="work2" />
-<jsp:setProperty property="work2_Qw" name="work2" />
-<jsp:setProperty property="work2_view1" name="work2" />
-<jsp:setProperty property="work2_view2" name="work2" />
-<jsp:setProperty property="work2_view3" name="work2" />
-<jsp:setProperty property="work2_view4" name="work2" />
+<jsp:setProperty property="*" name="work2" />
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -3,6 +3,8 @@
 <%@ page import="work2.Work2DAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="work2.Work2DTO"%>
+<%@ page import="java.io.PrintWriter"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,95 +15,99 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
+	%>
+	<c:if test="${empty sessionScope.userID}">
+		<script>
+			alert("로그인하시오")
+			location.href="login.jsp"
+		</script>
+	</c:if>
+	<jsp:include page="privateNav.jsp"/>
+	<c:choose>
+		<c:when test="${!empty param.num }">
+			<c:set var="p" value="${param.num }"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="p" value="${0}"/>
+		</c:otherwise>
+	</c:choose>
 	
-	String userID = null;
-	String name=null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-		name = (String) session.getAttribute("userName");
-	}
-	%>
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.jsp">Work Book Maker</a>
-		</div>
-		<div class="collapse navbar-collapse"
-			id="bs=example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="work.jsp">My WorkBook</a></li>
-				<li><a href="public/public.jsp">Public WorkBook</a></li>
-			</ul>
-			<%
-			if (userID == null) {
-			%>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="login.jsp">Login</a></li>
-			</ul>
-			<%
-			} else {
-			%>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><%=name%> <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">로그아웃</a></li>
-					</ul></li>
-			</ul>
-			<%
-			}
-			%>
-		</div>
-	</nav>
-
-	<%
-	int p;
-	if (request.getParameter("num") == null) {
-		p = 0;
-	} else {
-		p = Integer.parseInt((String) request.getParameter("num"));
-	}
-	String value = (String) request.getParameter("work1id");
-	Work2DAO dao = new Work2DAO();
-	ArrayList<Work2DTO> list = new ArrayList<>();
-	list = dao.getWork2(userID, value);
-	if (list.size() <= p) {
-	%>
-	<h1>모든 문제를 다 풀었습니다~</h1>
-	<a href="work1View.jsp?work1id=<%=value%>" class="btn btn-primary">처음으로</a>&nbsp;
-	<%
-	} else {
-	%>
-	<p><%=list.get(p).getWork2_Qw()%><br />
-	</p>
-	<form action="startwork.jsp" method="post">
-		<input type="hidden" name="val"
-			value="<%=list.get(p).getWork2_value()%>"> <input
-			type="hidden" name="num" value="<%=p%>"> <input type="hidden"
-			name="work1id" value="<%=value%>"> <input type="radio"
-			name="qs" value="1">
-		<%=list.get(p).getWork2_view1()%><br> <input type="radio"
-			name="qs" value="2">
-		<%=list.get(p).getWork2_view2()%><br> <input type="radio"
-			name="qs" value="3">
-		<%=list.get(p).getWork2_view3()%><br> <input type="radio"
-			name="qs" value="4">
-		<%=list.get(p).getWork2_view4()%><br> <input type="submit"
-			value="답 확인">
-	</form>
-	<%
-	}
-	%>
-
-
+	<c:choose>
+		<c:when test="${!empty param.score}">
+			<c:set var="score" value="${param.score}"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="score" value="${0}"/>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${list.size() <= p }">
+			<h1>모든 문제를 다 풀었습니다~</h1>	
+			<c:if test="${param.cs==1 }">
+				정답률 ${param.score}/${list.size()}
+				<br><br>
+					틀린문제
+				<br><br>
+				<c:forEach var="wrong" items="${wrong}">
+					<p>${wrong.getWork2Id()}번 문제: &nbsp;${wrong.getWork2_Qw()}</p>
+					<p>1. ${wrong.getWork2_view1()}<br></p>
+					<p>2. ${wrong.getWork2_view2()}<br></p>
+					<p>3. ${wrong.getWork2_view3()}<br></p>
+					<p>4. ${wrong.getWork2_view4()}<br></p>
+					정답 (${wrong.getWork2_value()})
+					<br><br>
+					--------------------------
+				</c:forEach>
+			</c:if>
+				<br>
+				<a href="work1View.jsp?work1id=${param.work1id}" class="btn btn-primary">처음으로</a>&nbsp;
+		</c:when>
+		<c:otherwise>
+			<c:if test="${param.cs==0 }">
+				<p>${list[p].getWork2Id()}번:${list[p].getWork2_Qw() }<br /></p>
+				<form action="startwork.jsp" method="post">
+					<input type="hidden" name="cs" value="0">
+					 <input type="hidden"
+						name="val" value="${list[p].getWork2_value()}"> <input
+						type="hidden" name="num" value="${p}"> <input type="hidden"
+						name="work1id" value="${param.work1id}"> <input type="radio"
+						name="qs" value="1">
+					${list[p].getWork2_view1()}<br> <input type="radio"
+						name="qs" value="2">
+					${list[p].getWork2_view2()}<br> <input type="radio"
+						name="qs" value="3">
+					${list[p].getWork2_view3()}<br> <input type="radio"
+						name="qs" value="4">
+					${list[p].getWork2_view4()}<br> <input type="submit"
+						value="답 확인">
+				</form>
+			</c:if>
+			<c:if test="${param.cs==1 }">
+				<p>${list[p].getWork2Id()}번:${list[p].getWork2_Qw() }<br /></p>
+				<form action="startwork.jsp" method="post">
+					<input type="hidden" name="cs" value="1">
+					<input type="hidden" name="work2id" value="${list[p].getWork2Id()}">
+					<input type="hidden" name="score" value="${score}">
+					 <input type="hidden"
+						name="val" value="${list[p].getWork2_value()}"> <input
+						type="hidden" name="num" value="${p}"> <input type="hidden"
+						name="work1id" value="${param.work1id}"> <input type="radio"
+						name="qs" value="1">
+					${list[p].getWork2_view1()}<br> <input type="radio"
+						name="qs" value="2">
+					${list[p].getWork2_view2()}<br> <input type="radio"
+						name="qs" value="3">
+					${list[p].getWork2_view3()}<br> <input type="radio"
+						name="qs" value="4">
+					${list[p].getWork2_view4()}<br> <input type="submit"
+						value="답 제출">
+				</form>
+				
+			</c:if>
+		</c:otherwise>
+	</c:choose>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>
-</html>
+</html> 

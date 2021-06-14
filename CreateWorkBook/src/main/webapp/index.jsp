@@ -1,6 +1,7 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,14 +12,21 @@
 <title>WorkBook</title>
 </head>
 <body>
+	<c:set var="userID" value="${sessionScope.userID}"/>
+	<c:set var="name" value="${sessionScope.userName }"/>
+	<c:set var="a" value="${val}"/>
+	<c:if test="${a==1}">
+		<script>
+			alert("로그인 성공");
+		</script>
+	</c:if>
+	<c:if test="${a==2}">
+		<script>
+			alert("회원가입 성공");
+		</script>
+	</c:if>
 	<%
-	String userID = null;
-	String name=null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-		name = (String) session.getAttribute("userName");
-	}
-	
+	response.setContentType("text/html; charset=utf-8");
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -33,44 +41,35 @@
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="work.jsp">My WorkBook</a></li>
+				<li><a href="workList.wo">My WorkBook</a></li>
 				<li><a href="public/public.jsp">Public WorkBook</a></li>
 			</ul>
-			<%
-			if (userID == null) {
-			%>
+			<c:if test="${empty userID}">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="login.jsp">Login</a></li>
 			</ul>
-			<%
-			} else {
-			%>
+			</c:if>
+			<c:if test="${!empty userID}">
 
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><%=name%> <span class="caret"></span></a>
+					aria-expanded="false">${name }<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">로그아웃</a></li>
+						<li><a href="logout.do">로그아웃</a></li>
 					</ul></li>
 			</ul>
-			<%
-			}
-			%>
+			</c:if>
 		</div>
 	</nav>
 	<div class="container">
 		<div class="jumbotron">
 			<div class="container">
 				<h1>내가만든문제집 풀어보고 공유하자!!</h1>
-				<%
-				if (userID != null) {
-				%>
-				<p><%=name%>님 환영합니다.
+				<c:if test="${!empty userID}">
+				<p>${name }님 환영합니다.
 				</p>
-				<%
-				}
-				%>
+				</c:if>
 				<p>
 					<a class="btn btn-primary btn-pull" href="work1.jsp" role="button">문제집
 						만들기</a>
