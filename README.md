@@ -69,7 +69,7 @@
   <h1>- 데이터베이스(MySQL) -</h1>
   <br/>
 
-![image](https://user-images.githubusercontent.com/64072136/120913749-549eed00-c6d4-11eb-9170-0f925ae0fa24.png)
+![image](https://user-images.githubusercontent.com/64072136/121827558-73663a80-ccf7-11eb-9faa-1d7a9973f5f0.png)
 
 
   
