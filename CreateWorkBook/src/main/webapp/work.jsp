@@ -42,6 +42,27 @@ request.setCharacterEncoding("UTF-8");
 			location.href="login.jsp"
 		</script>
 	</c:if>
+	<c:choose>
+		<c:when test="${val==1}">
+			<script>
+				alert("만들기 실패")
+			</script>
+		</c:when>
+		<c:when test="${val==2}">
+			<script>
+				alert("만들기 성공")
+			</script>
+			<c:redirect url="work2View.wo">
+				<c:param name="work1Id" value="${work1}"/>
+				<c:param name="work1Title" value="${param.work1Title}"/>
+			</c:redirect>
+		</c:when>
+		<c:when test="${val==4}">
+			<script>
+				alert("문제집이 정상적으로 삭제 되었습니다.")
+			</script>
+		</c:when>
+	</c:choose>
 	<jsp:include page="privateNav.jsp"/>
 	<form action="#" method="post">
 		<input type="text" name="serch"> <input type="submit"
@@ -60,7 +81,7 @@ request.setCharacterEncoding("UTF-8");
 			<c:forEach var="viewlist" items="${list}">
 				<tr>
 				<td>${viewlist.getWork1Id()}</td>
-				<td><a href="work1View.jsp?work1id=${viewlist.getWork1Id()}">${viewlist.getWork1Title()}</a></td>
+				<td><a href="work2View.wo?work1Id=${viewlist.getWork1Id()}&&work1Title=${viewlist.getWork1Title()}">${viewlist.getWork1Title()}</a></td>
 				<td>${viewlist.getWorkDate()}</td>
 				</tr>
 			</c:forEach>

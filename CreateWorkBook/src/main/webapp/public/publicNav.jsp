@@ -18,7 +18,7 @@
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="../work.jsp">My WorkBook</a></li>
+				<li><a href="../workList.wo">My WorkBook</a></li>
 				<li class="active"><a href="public.jsp">Public WorkBook</a></li>
 			</ul>
 

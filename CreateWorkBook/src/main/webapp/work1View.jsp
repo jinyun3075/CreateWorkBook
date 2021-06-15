@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="work2.Work2DAO"%>
-<%@ page import="work1.Work1DAO"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="work2.Work2DTO"%>
-<%@ page import="java.io.PrintWriter"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,80 +9,69 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("UTF-8");
-	String userID = null;
-	String title = null;
-	String name=null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-		name = (String) session.getAttribute("userName");
-	}
-	else {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인하시오.')");
-		script.println("location.href ='login.jsp'");
-		script.println("</script>");
-	}
-	%>
+	<c:if test="${!empty param.work1Title}">
+		<c:set var = "title" value="${param.work1Title}" scope="session"/>		
+	</c:if>
+	<c:if test="${empty sessionScope.userID}">
+		<script>
+			alert("로그인하시오")
+			location.href="login.jsp"
+		</script>
+	</c:if>
+	
 	<jsp:include page="privateNav.jsp"/>
-	<%
-	String work1Id = (String) request.getParameter("work1id");
-	Work2DAO dao = new Work2DAO();
-	ArrayList<Work2DTO> list = new ArrayList<>();
-	list = dao.getList(work1Id, userID);
-	for (int i = 0; i < list.size(); i++) {
-	%>
-	<%=list.get(i).getWork2Id()%>번 문제 :
-	<%=list.get(i).getWork2_Qw()%>&nbsp;
-	<a
-		href="work2Update.jsp?id1=<%=work1Id%>&&id2=<%=list.get(i).getWork2Id()%>"
-		class="btn btn-primary">수정</a>&nbsp;
-	<a
-		href="work2Delete.jsp?id1=<%=work1Id%>&&id2=<%=list.get(i).getWork2Id()%>"
-		class="btn btn-primary">삭제</a>
-	<br />
-	<%
-	}
-	%>
 
+	<h2>문제집 : ${title}</h2>
+
+	<c:forEach var="l" items="${list}">
+		${l.getWork2Id()}번 문제 :
+		${l.getWork2_Qw()}&nbsp;
+		<a
+			href="work2Update.wo?work1Id=${param.work1Id}&&work2Id=${l.getWork2Id()}"
+			class="btn btn-primary">수정</a>&nbsp;
+		<a
+			href="work2Delete.wo?work1Id=${param.work1Id}&&work2Id=${l.getWork2Id()}"
+			class="btn btn-primary">삭제</a>
+		<br/>
+	</c:forEach>
+	
 	<form action="work2.jsp" method="post">
-		<input type="hidden" name="work1id" value="<%=work1Id%>"> <input
+		<input type="hidden" name="work1Id" value="${param.work1Id}"> <input
 			type="submit" value="문제 추가">
 	</form>
-	<form action="work1Delete.jsp" method="post">
-		<input type="hidden" name="work1id" value="<%=work1Id%>"> <input
+	<br/>
+	<form action="work1Update.jsp" method="post">
+		<input type="hidden" name="work1Id" value="${param.work1Id}"> <input
+			type="submit" value="문제집 수정">
+	</form>
+	<form action="work1Delete.wo" method="post">
+		<input type="hidden" name="work1Id" value="${param.work1Id}"> <input
 			type="submit" value="문제집 삭제">
 	</form>
-	<form action="workChoice.jsp" method="post">
-		<input type="hidden" name="work1id" value="<%=work1Id%>"> <input
+	<form action="choice.wo" method="post">
+		<input type="hidden" name="work1Id" value="${param.work1Id}"> <input
 			type="submit" value="문제 풀기">
 	</form>
 	<br>
 	<br>
 	<br>
-	<%
-	Work1DAO work1dao = new Work1DAO();
-	String comp = work1dao.shere(work1Id, userID);
-	if (comp.equals("1")) {
-	%>
-	<form action="work1Shere.jsp" method="post">
-		<input type="hidden" name="work1Id" value="<%=work1Id%>"> <input
-			type="hidden" name="shere" value="0"> <input type="submit"
-			value="문제 공유하기">
+	
+	<c:choose>
+		<c:when test="${comp==1}">
+			<form action="workShere.wo" method="post">
+				<input type="hidden" name="work1Id" value="${param.work1Id}"/> 
+				<input type="hidden" name="shere" value="0"/> 
+				<input type="submit" value="문제 공유하기"/>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<form action="workShere.wo" method="post">
+				<input type="hidden" name="work1Id" value="${param.work1Id}"> 
+				<input type="hidden" name="shere" value="1"> 
+				<input type="submit" value="문제 공유해체">
 	</form>
-	<%
-	} else {
-	%>
-	<form action="work1Shere.jsp" method="post">
-		<input type="hidden" name="work1Id" value="<%=work1Id%>"> <input
-			type="hidden" name="shere" value="1"> <input type="submit"
-			value="문제 공유해체">
-	</form>
-	<%
-	}
-	%>
+		</c:otherwise>
+	</c:choose>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

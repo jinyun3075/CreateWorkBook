@@ -19,16 +19,12 @@ request.setCharacterEncoding("UTF-8");
 			location.href="login.jsp"
 		</script>
 	</c:if>
-	<c:if test="${val==3 }">
-		<script>
-			alert("문제집 이름을 정해주세요")
-		</script>
-	</c:if>
 	<jsp:include page="privateNav.jsp"/>
 
-	<form action="makeWork1.wo" method="post">
+	<form action="work1Update.wo" method="post">
+		<input type="hidden" name="work1Id" value="${param.work1Id }">
 		<input type="text" name="work1Title"> 문제집 <input type="submit"
-			value="문제집만들기">
+			value="문제집수정">
 	</form>
 
 </body>

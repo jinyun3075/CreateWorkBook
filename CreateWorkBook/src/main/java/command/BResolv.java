@@ -18,7 +18,7 @@ public class BResolv implements BCommand {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		String userID = (String) session.getAttribute("userID");
-		String value=(String) request.getParameter("work1id");
+		String value=(String) request.getParameter("work1Id");
 		
 		int num = 0;
 		if(request.getParameter("num")!=null) {

@@ -41,6 +41,21 @@ public class Work1DAO {
 		}
 		return -1; // 데이터베이스 오류
 	}
+	public int get(String userId) {
+		String SQL = "SELECT work1id FROM work1 WHERE userid=? ORDER BY work1id DESC";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 
 	public int delete(String userID, String work1Id) {
 		String sql = "DELETE FROM work1 WHERE userid=? AND work1id=?";
@@ -250,5 +265,17 @@ public class Work1DAO {
 		}
 		return -1;
 
+	}
+	public void Update(String work1title ,String work1Id, String userId) {
+		String sql = "UPDATE work1 SET work1title=? WHERE work1id=? AND userid=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, work1title);
+			pstmt.setString(2, work1Id);
+			pstmt.setString(3, userId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

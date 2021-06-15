@@ -139,7 +139,7 @@ public class Work2DAO {
 		}
 		return -1;
 	}
-	public int delete(String userId, String work1Id, String work2Id) {
+	public void delete(String userId, String work1Id, String work2Id) {
 		String sql="DELETE FROM work2 WHERE userid=? AND work1id=? AND work2id=?";
 		
 		try {
@@ -147,11 +147,10 @@ public class Work2DAO {
 			dp.setString(1, userId);
 			dp.setString(2, work1Id);
 			dp.setString(3, work2Id);
-			return dp.executeUpdate();
+			dp.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
 	}
 	
 	public ArrayList<Work2DTO> getWork2( String userId,String work1Id) {

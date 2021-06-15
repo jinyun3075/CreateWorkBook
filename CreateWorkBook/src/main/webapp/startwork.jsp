@@ -36,13 +36,13 @@
 			<form action="resolvWork.wo" method="post">
 				<input type="hidden" name="cs" value="0"> <input type="hidden"
 					name="num" value="${param.num }"> <input type="hidden"
-					name="work1id" value="${param.work1id}"> <input type="submit"
+					name="work1Id" value="${param.work1Id}"> <input type="submit"
 					value="문제 다시풀기">
 			</form>
 			<form action="resolvWork.wo" method="post">
 				<input type="hidden" name="cs" value="0"> <input type="hidden"
 					name="num" value="${param.num+1}"> <input type="hidden"
-					name="work1id" value="${param.work1id}"> <input type="submit"
+					name="work1Id" value="${param.work1Id}"> <input type="submit"
 					value="다음문제 풀기">
 			</form>
 		</c:if>
@@ -51,7 +51,7 @@
 			<form action="resolvWork.wo" method="post">
 				<input type="hidden" name="cs" value="0"> <input type="hidden"
 					name="num" value="${param.num }"> <input type="hidden"
-					name="work1id" value="${param.work1id}"> <input type="submit"
+					name="work1Id" value="${param.work1Id}"> <input type="submit"
 					value="문제 다시풀기">
 			</form>			
 		</c:if>
@@ -62,7 +62,7 @@
 				<c:param name="cs" value="1"/>
 				<c:param name="num" value="${param.num+1}"/>
 				<c:param name="score" value="${param.score+1}"/>
-				<c:param name="work1id" value="${param.work1id}"/>
+				<c:param name="work1Id" value="${param.work1Id}"/>
 			</c:redirect>			
 		</c:if>
 		<c:if test="${param.val!=param.qs}">
@@ -71,7 +71,7 @@
 				<c:param name="cs" value="1"/>
 				<c:param name="num" value="${param.num+1}"/>
 				<c:param name="score" value="${param.score}"/>
-				<c:param name="work1id" value="${param.work1id}"/>
+				<c:param name="work1Id" value="${param.work1Id}"/>
 			</c:redirect>			
 		</c:if>
 	</c:if>

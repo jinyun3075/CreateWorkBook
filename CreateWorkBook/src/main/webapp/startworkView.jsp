@@ -61,7 +61,7 @@
 				</c:forEach>
 			</c:if>
 				<br>
-				<a href="work1View.jsp?work1id=${param.work1id}" class="btn btn-primary">처음으로</a>&nbsp;
+				<a href="work2View.wo?work1Id=${param.work1Id}" class="btn btn-primary">처음으로</a>&nbsp;
 		</c:when>
 		<c:otherwise>
 			<c:if test="${param.cs==0 }">
@@ -71,7 +71,7 @@
 					 <input type="hidden"
 						name="val" value="${list[p].getWork2_value()}"> <input
 						type="hidden" name="num" value="${p}"> <input type="hidden"
-						name="work1id" value="${param.work1id}"> <input type="radio"
+						name="work1Id" value="${param.work1Id}"> <input type="radio"
 						name="qs" value="1">
 					${list[p].getWork2_view1()}<br> <input type="radio"
 						name="qs" value="2">
@@ -92,7 +92,7 @@
 					 <input type="hidden"
 						name="val" value="${list[p].getWork2_value()}"> <input
 						type="hidden" name="num" value="${p}"> <input type="hidden"
-						name="work1id" value="${param.work1id}"> <input type="radio"
+						name="work1Id" value="${param.work1Id}"> <input type="radio"
 						name="qs" value="1">
 					${list[p].getWork2_view1()}<br> <input type="radio"
 						name="qs" value="2">

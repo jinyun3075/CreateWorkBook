@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ page import="work2.Work2DAO"%>
 	<%@ page import="java.io.PrintWriter"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,36 +11,21 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("UTF-8");
-	String userID = null;
-	String title = null;
-	String name=null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-		name = (String) session.getAttribute("userName");
-	}else {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인하시오.')");
-		script.println("location.href ='login.jsp'");
-		script.println("</script>");
-	}
-	%>
+	<c:if test="${empty sessionScope.userID}">
+		<script>
+			alert("로그인하시오")
+			location.href="login.jsp"
+		</script>
+	</c:if>
 	<jsp:include page="privateNav.jsp"/>
-	<%
-	String work1Id = (String) request.getParameter("work1id");
-	Work2DAO d = new Work2DAO();
-	d.wrongdel(userID);
-	%>
 	<form action="resolvWork.wo" method="post">
-		<input type="hidden" name="work1id" value="<%=work1Id%>">
+		<input type="hidden" name="work1Id" value="${param.work1Id }">
 		<input type="hidden" name="cs" value="0"> 
 		<input
 			type="submit" value="공부 모드">
 	</form>
 	<form action="resolvWork.wo" method="post">
-		<input type="hidden" name="work1id" value="<%=work1Id%>"> 
+		<input type="hidden" name="work1Id" value="${param.work1Id }"> 
 		<input type="hidden" name="cs" value="1">
 		<input
 			type="submit" value="시험 모드">
