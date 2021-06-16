@@ -12,7 +12,7 @@ import work1.Work1DAO;
 import work2.Work2DAO;
 import work2.Work2DTO;
 
-public class BWork2View implements BCommand{
+public class BWork1View implements BCommand{
 @Override
 public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();

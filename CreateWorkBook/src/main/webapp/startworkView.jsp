@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="work2.Work2DAO"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="work2.Work2DTO"%>
-<%@ page import="java.io.PrintWriter"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -13,9 +9,6 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("UTF-8");
-	%>
 	<c:if test="${empty sessionScope.userID}">
 		<script>
 			alert("로그인하시오")
@@ -61,7 +54,7 @@
 				</c:forEach>
 			</c:if>
 				<br>
-				<a href="work2View.wo?work1Id=${param.work1Id}" class="btn btn-primary">처음으로</a>&nbsp;
+				<a href="work1View.wo?work1Id=${param.work1Id}" class="btn btn-primary">처음으로</a>&nbsp;
 		</c:when>
 		<c:otherwise>
 			<c:if test="${param.cs==0 }">

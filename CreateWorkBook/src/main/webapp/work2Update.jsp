@@ -36,6 +36,7 @@
 					1번<input type="radio" name="work2_value" value="1">			
 				</c:otherwise>
 			</c:choose>
+			&nbsp;
 			<c:choose>
 				<c:when test="${dto.getWork2_value()==2 }">
 					2번<input type="radio" name="work2_value" value="2" checked>		
@@ -44,6 +45,7 @@
 					2번<input type="radio" name="work2_value" value="2">			
 				</c:otherwise>
 			</c:choose>
+			&nbsp;
 			<c:choose>
 				<c:when test="${dto.getWork2_value()==3 }">
 					3번<input type="radio" name="work2_value" value="3" checked>		
@@ -52,6 +54,7 @@
 					3번<input type="radio" name="work2_value" value="3">			
 				</c:otherwise>
 			</c:choose>
+			&nbsp;
 			<c:choose>
 				<c:when test="${dto.getWork2_value()==4 }">
 					4번<input type="radio" name="work2_value" value="4" checked>		

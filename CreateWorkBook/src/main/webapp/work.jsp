@@ -52,7 +52,7 @@ request.setCharacterEncoding("UTF-8");
 			<script>
 				alert("만들기 성공")
 			</script>
-			<c:redirect url="work2View.wo">
+			<c:redirect url="work1View.wo">
 				<c:param name="work1Id" value="${work1}"/>
 				<c:param name="work1Title" value="${param.work1Title}"/>
 			</c:redirect>
@@ -64,7 +64,7 @@ request.setCharacterEncoding("UTF-8");
 		</c:when>
 	</c:choose>
 	<jsp:include page="privateNav.jsp"/>
-	<form action="#" method="post">
+	<form action="workList.wo" method="post">
 		<input type="text" name="serch"> <input type="submit"
 			value="검색">
 	</form>
@@ -81,7 +81,7 @@ request.setCharacterEncoding("UTF-8");
 			<c:forEach var="viewlist" items="${list}">
 				<tr>
 				<td>${viewlist.getWork1Id()}</td>
-				<td><a href="work2View.wo?work1Id=${viewlist.getWork1Id()}&&work1Title=${viewlist.getWork1Title()}">${viewlist.getWork1Title()}</a></td>
+				<td><a href="work1View.wo?work1Id=${viewlist.getWork1Id()}&&work1Title=${viewlist.getWork1Title()}">${viewlist.getWork1Title()}</a></td>
 				<td>${viewlist.getWorkDate()}</td>
 				</tr>
 			</c:forEach>

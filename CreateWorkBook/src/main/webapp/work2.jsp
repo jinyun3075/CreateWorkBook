@@ -31,9 +31,9 @@
 			name="work2_view2"><br /> 보기3<input type="text"
 			name="work2_view3"><br /> 보기4<input type="text"
 			name="work2_view4"><br /> 정답
-			1번<input type="radio" name="work2_value" value="1">
-			2번<input type="radio" name="work2_value" value="2">
-			3번<input type="radio" name="work2_value" value="3">
+			1번<input type="radio" name="work2_value" value="1">&nbsp;
+			2번<input type="radio" name="work2_value" value="2">&nbsp;
+			3번<input type="radio" name="work2_value" value="3">&nbsp;
 			4번<input type="radio" name="work2_value" value="4"><br /> 
 			<input type="submit" value="추가">
 	</form>

@@ -147,12 +147,12 @@ public class Work1DAO {
 	}
 
 	public ArrayList<Work1DTO> publicgetlist(String serch, int pageNumber) {
-		String sql = "SELECT * FROM work1 WHERE publ='0' AND work1title LIKE ? ORDER BY workdate LIMIT 10 OFFSET ?";
+		String sql = "SELECT * FROM work1 WHERE publ='0' AND work1title LIKE ? ORDER BY workdate LIMIT 5 OFFSET ?";
 		ArrayList<Work1DTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, serch);
-			pstmt.setInt(2, (pageNumber - 1) * 10);
+			pstmt.setInt(2, (pageNumber - 1) * 5);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Work1DTO work = new Work1DTO();

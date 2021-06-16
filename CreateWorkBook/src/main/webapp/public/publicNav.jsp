@@ -13,13 +13,13 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="../index.jsp">Work Book Maker</a>
+			<a class="navbar-brand" href="index.jsp">Work Book Maker</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="../workList.wo">My WorkBook</a></li>
-				<li class="active"><a href="public.jsp">Public WorkBook</a></li>
+				<li><a href="workList.wo">My WorkBook</a></li>
+				<li class="active"><a href="workList.publ">Public WorkBook</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -27,7 +27,7 @@
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">${name } <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="../logout.do">로그아웃</a></li>
+						<li><a href="logout.do">로그아웃</a></li>
 					</ul></li>
 			</ul>
 

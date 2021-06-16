@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import command.BCommand;
 import command.BMakeWork;
 import command.BResolv;
+import command.BWork1View;
 import command.BWork2Del;
 import command.BWork2UpdateAction;
 import command.BWork2UpdateView;
-import command.BWork2View;
 import command.BWorkAction;
 import command.BWorkChoice;
 import command.BWorkDel;
@@ -86,13 +86,13 @@ public class workaction extends HttpServlet {
 		}else if(com.equals("/work1Update.wo")) {
 			command = new BWorkUpdate();
 			command.execute(request, response);
-			viewPage="work2View.wo";
+			viewPage="work1View.wo";
 		}else if(com.equals("/workShere.wo")) {
 			command= new BWorkShere();
 			command.execute(request, response);
-			viewPage="work2View.wo";
-		}else if(com.equals("/work2View.wo")) {
-			command = new BWork2View();
+			viewPage="work1View.wo";
+		}else if(com.equals("/work1View.wo")) {
+			command = new BWork1View();
 			command.execute(request, response);
 			viewPage="work1View.jsp";
 		}else if(com.equals("/work2Action.wo")) {
@@ -102,13 +102,13 @@ public class workaction extends HttpServlet {
 			if(result==1) {
 				viewPage="work2.jsp";
 			}else{
-				viewPage="work2View.wo";				
+				viewPage="work1View.wo";				
 			}
 		}else if(com.equals("/work2Delete.wo")) {
 			command = new BWork2Del();
 			command.execute(request, response);
 			
-			viewPage="work2View.wo";
+			viewPage="work1View.wo";
 		}else if(com.equals("/work2Update.wo")) {
 			command = new BWork2UpdateView();
 			command.execute(request, response);
@@ -116,7 +116,7 @@ public class workaction extends HttpServlet {
 		}else if(com.equals("/Update.wo")) {
 			command = new BWork2UpdateAction();
 			command.execute(request, response);
-			viewPage="work2View.wo";
+			viewPage="work1View.wo";
 		}else if(com.equals("/choice.wo")) {
 			command= new BWorkChoice();
 			command.execute(request, response);

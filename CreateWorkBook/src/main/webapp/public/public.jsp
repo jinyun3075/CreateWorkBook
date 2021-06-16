@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="work1.Work1DAO"%>
-<%@ page import="work1.Work1DTO"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.io.PrintWriter"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../css/custom.css">
-<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <meta charset="UTF-8">
 <style>
 .paging {
@@ -35,22 +33,13 @@ request.setCharacterEncoding("UTF-8");
 </style>
 </head>
 <body>
-	<%
-	String userID = null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-	} else {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인하시오.')");
-		script.println("location.href ='../login.jsp'");
-		script.println("</script>");
-	}
-	int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
-	%>
+	<c:if test="${empty sessionScope.userID}">
+		<script>
+			alert("로그인하시오")
+			location.href="login.jsp"
+		</script>
+	</c:if>
+	
 	<jsp:include page="publicNav.jsp"/>
 	<form action="#" method="post">
 		<input type="text" name="serch"> <input type="submit"
@@ -67,73 +56,46 @@ request.setCharacterEncoding("UTF-8");
 					사람</th>
 			</tr>
 		</thead>
+		<c:forEach var="viewlist" items="${list}">
+				<tr>
+				<td>${viewlist.getUserId()}</td>
+				<td><a href="work1View.publ?makeUser=${viewlist.getUserId()}&&work1Id=${viewlist.getWork1Id()}&&work1Title=${viewlist.getWork1Title()}">${viewlist.getWork1Title()}</a></td>
+				<td>${viewlist.getWorkDate()}</td>
+				<td>${viewlist.getCli()}</td>
+				</tr>
+			</c:forEach>
 		<tbody>
-			<%
-			String serch = "%";
-			if (request.getParameter("serch") != null) {
-				serch = (String) request.getParameter("serch") + "%";
-			}
-			Work1DAO DAO = new Work1DAO();
-			ArrayList<Work1DTO> list = DAO.publicgetlist(serch, pageNumber);
-			for (int i = 0; i < list.size(); i++) {
-			%>
-			<tr>
-				<td><%=list.get(i).getUserId()%></td>
-				<td><a
-					href="work1View.jsp?title=<%=list.get(i).getWork1Title()%>&&work1id=<%=list.get(i).getWork1Id()%>&&makeuser=<%=list.get(i).getUserId()%>"><%=list.get(i).getWork1Title().replaceAll(" ", "&nbsp").replaceAll(">", "&gt;").replaceAll("<", "&lt;")
-		.replaceAll("\n", "<br>")%></a></td>
-				<td><%=list.get(i).getWorkDate().substring(0, 11) + list.get(i).getWorkDate().substring(11, 13) + "시"
-		+ list.get(i).getWorkDate().substring(14, 16) + "분"%></td>
-				<td><%=list.get(i).getCli()%></td>
-			</tr>
-			<%
-			}
-			%>
 
 		</tbody>
 	</table>
+	
 	<div class="paging">
-	<%
-	if (pageNumber != 1) {
-	%>
-	<a href="public.jsp?pageNumber=<%=pageNumber - 1%>&&serch=<%=serch %>"
-		class="btn btn-success">이전</a>
-	<%
-	}
-	%>
-	<%
-		int pag=0;
-		pag=pageNumber/5;
-		pag*=5;
-		int cnt=0;
-		while(cnt<5){
-		if(!DAO.publnextPage(pag + 1, serch)){
-			break;
-		}
-		if(pag+1==pageNumber){
-	%>
-			<a class="select" href="public.jsp?pageNumber=<%=pag+1%>&&serch=<%=serch%>"><%=pag+1%></a>
-	<% 			
-		}else{
-	%>
-		<a href="public.jsp?pageNumber=<%=pag+1%>&&serch=<%=serch%>"><%=pag+1%></a>	
-	<%		
-		}
-			pag++;
-			cnt++;
-		}
-	%>
-	<%
-	if (DAO.publnextPage(pageNumber + 1, serch)) {
-	%>
-	<a href="public.jsp?pageNumber=<%=pageNumber + 1%>&&serch=<%=serch %>"
-		class="btn btn-success">다음</a>
-	<%
-	}
-	%>
+		<c:if test="${pageNumber!=1}">
+			<a href="workList.publ?pageNumber=${pageNumber-1}&&serch=${serch}"class="btn btn-success">이전</a>
+		</c:if>
+		<c:set var="pagg" value="${pag}"/>
+		<c:forEach begin="1" end="5" step="1" var="i">
+			<c:if test="${b}">	
+			<c:choose>
+				<c:when test="${pagg+1==pageNumber}">
+					<a class="select" href="workList.publ?pageNumber=${pagg+1}&&serch=${serch}">${pagg+1}</a>
+				</c:when>
+				<c:otherwise>
+					<a href="workList.publ?pageNumber=${pagg+1}&&serch=${serch}">${pagg+1}</a>			
+				</c:otherwise>
+			</c:choose>
+			</c:if>
+			<c:set var="pagg" value="${pagg+1}"/>
+			<c:set var="b" value="${DAO.publnextPage(pagg+1,serch)}"/>
+		</c:forEach>
+		<c:if test="${a}">
+			<a href="workList.publ?pageNumber=${pageNumber+1}&&serch=${serch}"
+				class="btn btn-success">다음</a>			
+		</c:if>
+		
 		</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="../js/bootstrap.js"></script>
+	<script src="js/bootstrap.js"></script>
 
 </body>
 </html>

@@ -42,7 +42,7 @@
 			id="bs=example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="workList.wo">My WorkBook</a></li>
-				<li><a href="public/public.jsp">Public WorkBook</a></li>
+				<li><a href="workList.publ">Public WorkBook</a></li>
 			</ul>
 			<c:if test="${empty userID}">
 			<ul class="nav navbar-nav navbar-right">
