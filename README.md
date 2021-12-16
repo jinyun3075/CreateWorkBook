@@ -27,13 +27,12 @@
 
 
   <h2>첫 웹프로젝트 개발</h2>
-  가장 자신있는 언어인 JAVA를 활용하여 만들 수 있는게 뭐가있을까 하다가 Springboot 프레임워크를 발견하여 공부를 시작했다. 하지만 이해가 되지않고 프레임워크를 사용하기전에
-  JSP를 공부하면 도움이 될 수 있다는 사실을 알게되었고 공부를 시작했다. 게시판을 따라 만들고 익힌 기술로 만들고싶은 사이트를 만들었다.
-  그냥 프로젝트 만드는 것이 확실한 공부법임을 깨닫게 해준 첫 프로젝트이다.
+  java 언어를 이용해서 처음 만들고싶은 웹이다. 개발하면서 시간가는줄 몰랐고 기술을 터득할때마다 적용하면서 리펙토링에 소중함을 배울 수 있었다.
+  다음은 프레임워크를 사용해서 모듈을 나누어 좀 더 깔끔한 개발을 할것이다.
   
   
   
-  디자인은 서칭했다.
+  디자인은 무료 템플릿사용 - 라이센스확인.
 <br/>
   
   <h1>- 매인, 로그인, 문제추가 -</h1>
@@ -70,15 +69,4 @@
   <br/>
 
 ![image](https://user-images.githubusercontent.com/64072136/121827558-73663a80-ccf7-11eb-9faa-1d7a9973f5f0.png)
-
-
-  
-<h2>기억나는 오류 및 해결방법</h2>
-
-Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
-com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'work2_qw' at row 1
- - 데이터베이스 컬럼 크기 초과,, 문제가 길어서 생긴 오류 , 데이터베이스 크기조절로해결
-  
-You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'userid='11' and work1id='1' and work2id='2'' at line 1
- - 쿼리문 PrepareStatement set과정 타입 불일치하여생김, 타입 일치로 해결
   
