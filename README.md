@@ -1,9 +1,16 @@
-# 나만의 문제집만들기 사이트 /// 2021-05-26 ~ 06-05 (06-16 리펙토링)
+# 나만의 문제집만들기 사이트 /// 2021-05-26 ~ 06-05
 ## 개발환경
- - Eclips
- - MySQL
- - Tomcat Apache
- ## 기능
+ - Eclips 4.190
+ - MySQL Workbench 8.0 CE
+ - Tomcat 8.0
+
+## 실행 방법
+ 1. Eclips에 들어가 file -> new -> Dynamic Web Project 들어가 8.0 톰캣과 연결하여 실행환경을 만든다.
+ 2. git 클론 후 CreateorkBook 안에 src를 복사하여 새로만든 환경에 src에 넣는다.
+ 3. src -> main -> java -> util 폴더에 DatabaseConnection.java 파일을 사용할 로컬 mysql에 맞춰 id pw 를 변경한다.
+ 4. src -> main -> webapp 안에있는 index.jsp를 실행한다.
+ 
+## 기능
   - 로그인, 로그아웃
   - 문제집 만들기
   - 문제 추가, 수정, 삭제
