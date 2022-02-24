@@ -6,7 +6,7 @@
 
 ## 실행 방법
  1. Eclips에 들어가 file -> new -> Dynamic Web Project를 눌러 8.0 톰캣과 연결하여 실행환경을 만든다.
- 2. git 클론 후 CreateWorkBook 안에 src를 복사하여 새로만든 환경에 src에 넣는다.
+ 2. git 클론 후 CreateWorkBook 안에 src를 복사하여 새로만든 환경 src에 붙여 넣는다.
  3. src -> main -> java -> util 폴더에 DatabaseConnection.java 파일을 사용할 로컬 mysql에 맞춰 schemaName, id, pw 를 변경한다.
  4. src -> main -> webapp 안에있는 index.jsp를 실행한다.
  
